@@ -1,7 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 
-import { useState } from "react";
 import "./App.css";
-
 
 const suggestions = [
   {
@@ -26,135 +25,246 @@ const suggestions = [
   },
 ];
 
-
-const projects = [
+// Research first, then projects. `kind` decides which group an entry sits in.
+const works = [
   {
-    number: "01",
-    type: "AI RESEARCH",
+    kind: "Research",
+    field: "AI research",
     name: "Dam Overflow Risk Prediction",
     description:
       "A comparative study of machine learning models for predicting dam overflow and structural risks in Ethiopia, focusing on the Grand Ethiopian Renaissance Dam.",
-    stack: "Python · SVM · ANN · RNN-LSTM",
+    stack: "Python, SVM, ANN, RNN-LSTM",
     link: "https://zenodo.org/records/18951345",
-    linkLabel: "Read Research",
+    linkLabel: "Read the research",
   },
   {
-    number: "02",
-    type: "GENERATIVE AI · RAG",
-    name: "Abby AI",
-    description:
-      "An AI-powered portfolio assistant that retrieves information from my professional background and answers questions conversationally in English and Amharic.",
-    stack: "FastAPI · Gemini · ChromaDB · React",
-    link: "https://github.com/Abby966",
-    linkLabel: "Explore GitHub",
-  },
-  {
-    number: "03",
-    type: "FULL-STACK DEVELOPMENT",
-    name: "FundMate",
-    description:
-      "A platform connecting entrepreneurs, investors, and mentors to support startup discovery, mentorship, and collaboration.",
-    stack: "React · Node.js · Express · PostgreSQL · Socket.IO",
-    link: "https://github.com/Abby966/Fundmate2",
-    linkLabel: "View Repository",
-  },
-  {
-    number: "04",
-    type: "WEB DEVELOPMENT · TOURISM",
-    name: "Discover Dire Dawa",
-    description:
-      "A website showcasing Dire Dawa's attractions, culture, markets, accommodation, and visitor information.",
-    stack: "Web Development · Responsive Design",
-    link: "https://discoverdire.netlify.app/",
-    linkLabel: "Live Website",
-    live: true,
-  },
-  {
-    number: "05",
-    type: "WEB DEVELOPMENT · SOCIAL IMPACT",
-    name: "Aged Care & Dignity Center",
-    description:
-      "A website presenting elder-care services and community initiatives, helping visitors learn about the center and ways to support its work.",
-    stack: "Web Development · Responsive Design",
-    link: "https://frabjous-macaron-786d14.netlify.app/",
-    linkLabel: "Live Website",
-    live: true,
-  },
-  {
-    number: "06",
-    type: "SECURITY · SYSTEM MONITORING",
-    name: "Laptop Sentinel",
-    description:
-      "A laptop monitoring and security project focused on tracking, intrusion detection, and smart alerts.",
-    stack: "Software Development · Security",
-    link: "https://github.com/Abby966/Laptopsentinel",
-    linkLabel: "View Repository",
-  },
-  {
-    number: "07",
-    type: "GENERATIVE AI · KNOWLEDGE RETRIEVAL",
-    name: "RecallX",
-    description:
-      "A retrieval-augmented generation chatbot that helps users retrieve answers from a knowledge source.",
-    stack: "Python · Streamlit · RAG",
-    link: "https://myrecallx.streamlit.app/",
-    linkLabel: "Live App",
-    live: true,
-  },
-  {
-    number: "08",
-    type: "COMPUTER VISION · AGRICULTURE",
-    name: "PlantPulse",
-    description:
-      "A plant disease classification project exploring how image-based AI can identify plant health conditions and support agricultural decision-making.",
-    stack: "Python · TensorFlow · Image Classification",
-    link: "https://github.com/Abby966",
-    linkLabel: "Explore GitHub",
-  },
-  {
-    number: "09",
-    type: "RESEARCH · HUMAN-COMPUTER INTERACTION",
+    kind: "Research",
+    field: "Research, human-computer interaction",
     name: "An Experimental Study on Consent Behavior",
     description:
       "A study of digital consent behavior, exploring how users interact with terms and conditions and the factors that influence privacy decisions.",
-    stack: "Research · User Behavior · Digital Privacy",
+    stack: "Research, user behavior, digital privacy",
     link: "https://github.com/Abby966",
-    linkLabel: "Explore GitHub",
+    linkLabel: "Explore on GitHub",
   },
   {
-    number: "10",
-    type: "WEB DEVELOPMENT · COMMUNITY",
+    kind: "Project",
+    field: "Generative AI, RAG",
+    name: "AskAbby",
+    description:
+      "An AI-powered portfolio assistant that retrieves information from my professional background and answers questions conversationally in English and Amharic.",
+    stack: "FastAPI, Gemini, ChromaDB, React",
+    link: "https://github.com/Abby966",
+    linkLabel: "Explore on GitHub",
+  },
+  {
+    kind: "Project",
+    field: "Full-stack development",
+    name: "FundMate",
+    description:
+      "A platform connecting entrepreneurs, investors, and mentors to support startup discovery, mentorship, and collaboration.",
+    stack: "React, Node.js, Express, PostgreSQL, Socket.IO",
+    link: "https://github.com/Abby966/Fundmate2",
+    linkLabel: "View the repository",
+  },
+  {
+    kind: "Project",
+    field: "Web development, tourism",
+    name: "Discover Dire Dawa",
+    description:
+      "A website showcasing Dire Dawa's attractions, culture, markets, accommodation, and visitor information.",
+    stack: "Web development, responsive design",
+    link: "https://discoverdire.netlify.app/",
+    linkLabel: "Visit the website",
+  },
+  {
+    kind: "Project",
+    field: "Web development, social impact",
+    name: "Aged Care & Dignity Center",
+    description:
+      "A website presenting elder-care services and community initiatives, helping visitors learn about the center and ways to support its work.",
+    stack: "Web development, responsive design",
+    link: "https://frabjous-macaron-786d14.netlify.app/",
+    linkLabel: "Visit the website",
+  },
+  {
+    kind: "Project",
+    field: "Security, system monitoring",
+    name: "Laptop Sentinel",
+    description:
+      "A laptop monitoring and security project focused on tracking, intrusion detection, and smart alerts.",
+    stack: "Software development, security",
+    link: "https://github.com/Abby966/Laptopsentinel",
+    linkLabel: "View the repository",
+  },
+  {
+    kind: "Project",
+    field: "Generative AI, knowledge retrieval",
+    name: "RecallX",
+    description:
+      "A retrieval-augmented generation chatbot that helps users retrieve answers from a knowledge source.",
+    stack: "Python, Streamlit, RAG",
+    link: "https://myrecallx.streamlit.app/",
+    linkLabel: "Open the app",
+  },
+  {
+    kind: "Project",
+    field: "Computer vision, agriculture",
+    name: "PlantPulse",
+    description:
+      "A plant disease classification project exploring how image-based AI can identify plant health conditions and support agricultural decision-making.",
+    stack: "Python, TensorFlow, image classification",
+    link: "https://github.com/Abby966",
+    linkLabel: "Explore on GitHub",
+  },
+  {
+    kind: "Project",
+    field: "Web development, community",
     name: "Social Media API",
     description:
       "A backend development project focused on API-based social media functionality and data exchange.",
-    stack: "Backend Development · REST API",
+    stack: "Backend development, REST API",
     link: "https://github.com/Abby966",
-    linkLabel: "Explore GitHub",
+    linkLabel: "Explore on GitHub",
   },
   {
-    number: "11",
-    type: "WEB DEVELOPMENT · EDUCATION",
+    kind: "Project",
+    field: "Web development, education",
     name: "Online Entrance Exam Preparation System",
     description:
       "An education-focused system intended to help students prepare for entrance examinations through online learning resources.",
-    stack: "Web Development · Education Technology",
+    stack: "Web development, education technology",
     link: "https://github.com/Abby966",
-    linkLabel: "Explore GitHub",
+    linkLabel: "Explore on GitHub",
   },
 ];
 
+const experience = [
+  {
+    kind: "Current role",
+    name: "BeOnline ICT Solutions PLC",
+    role: "Technical Solutions Engineer, Microsoft Cloud & Collaboration",
+    detail:
+      "Support customer-facing technical solutions involving Microsoft 365, Azure, Microsoft Entra ID, Teams, Exchange Online, SharePoint, OneDrive, endpoint management, cloud security, and licensing. Also engage with security solutions including Kaspersky and CyberArk.",
+  },
+  {
+    kind: "Development",
+    name: "Afronex Tech Hub",
+    role: "Developer, Full-Stack Development Intern",
+    detail:
+      "Contributed to web application development using React and Node.js, gaining practical experience in frontend interfaces, backend functionality, and full-stack development.",
+  },
+  {
+    kind: "Teaching",
+    name: "Yenetta Code",
+    role: "Coding Instructor",
+    detail:
+      "Support learners as they develop programming knowledge and practical coding skills through instruction and learning activities.",
+  },
+  {
+    kind: "Community leadership",
+    name: "WAAW Foundation",
+    role: "Chapter Leadership, STEM Outreach",
+    detail:
+      "Promoted STEM education and technology engagement for girls through outreach activities, presentations, and practical learning opportunities.",
+  },
+  {
+    kind: "Tutoring and education",
+    name: "Kelem Tutors and Other Learning Initiatives",
+    role: "Tutor, Volunteer Educator",
+    detail:
+      "Supported learners through tutoring and educational activities, helping students strengthen their understanding of academic and technical subjects.",
+  },
+  {
+    kind: "Internship",
+    name: "Commercial Bank of Ethiopia",
+    role: "Semester Intern",
+    detail:
+      "Gained workplace experience through a semester internship at the Commercial Bank of Ethiopia.",
+  },
+  {
+    kind: "Community engagement",
+    name: "STEM Outreach in Dire Dawa",
+    role: "Technology Outreach and Mentoring",
+    detail:
+      "Participated in activities introducing students to technology, web development, and opportunities in STEM, with a focus on encouraging girls to explore technology.",
+  },
+];
+
+const contents = [
+  { href: "#ask-abby", label: "Ask Abby" },
+  { href: "#about", label: "About" },
+  { href: "#education", label: "Education" },
+  { href: "#work", label: "Projects and research" },
+  { href: "#experience", label: "Experience" },
+];
+
+const skills = [
+  "Python", "React", "Node.js", "Next.js", "FastAPI",
+  "Machine Learning", "TensorFlow", "RAG", "PostgreSQL", "SQL",
+  "Java", "C++", "TypeScript", "Django", "Git",
+  "Microsoft 365", "Azure", "Cybersecurity", "Teamwork", "Leadership",
+];
+
+function Words({ text }) {
+  return text.split(" ").map((word, i) => (
+    <span className="w" style={{ "--i": i }} key={i}>
+      {word}&nbsp;
+    </span>
+  ));
+}
+
+function Sheet({ id, title, note, children }) {
+  return (
+    <section className="sheet" id={id} data-reveal>
+      <div className="sheet-title">
+        <h2>{title}</h2>
+        {note && <p>{note}</p>}
+      </div>
+      <div className="sheet-body">{children}</div>
+    </section>
+  );
+}
 
 function App() {
   const [messages, setMessages] = useState([]);
+  const [activeWork, setActiveWork] = useState(0);
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const detailRef = useRef(null);
+
+  // Reveal sheets as they enter the viewport, and track scroll progress.
+  useEffect(() => {
+    const items = document.querySelectorAll("[data-reveal]");
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        }),
+      { threshold: 0.12 }
+    );
+    items.forEach((el) => io.observe(el));
+
+    const root = document.documentElement;
+    const onScroll = () => {
+      const max = root.scrollHeight - root.clientHeight || 1;
+      root.style.setProperty("--p", String(root.scrollTop / max));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   async function sendQuestion(text = question) {
     const trimmedQuestion = text.trim();
-
     if (!trimmedQuestion || loading) return;
-
     setMessages((previous) => [
       ...previous,
       { role: "user", content: trimmedQuestion },
@@ -162,7 +272,6 @@ function App() {
     setQuestion("");
     setError("");
     setLoading(true);
-
     try {
       const response = await fetch("http://127.0.0.1:8000/ask", {
         method: "POST",
@@ -171,15 +280,11 @@ function App() {
         },
         body: JSON.stringify({ question: trimmedQuestion }),
       });
-
       if (!response.ok) {
         throw new Error(`Request failed (${response.status})`);
       }
-
       const data = await response.json();
-
       if (data.error) throw new Error(data.error);
-
       setMessages((previous) => [
         ...previous,
         {
@@ -191,7 +296,7 @@ function App() {
       ]);
     } catch (err) {
       setError(
-        "I couldn't connect to Abby AI. Check that the backend is running and try again."
+        "I couldn't connect to AskAbby. Check that the backend is running and try again."
       );
       console.error("Chat request failed:", err);
     } finally {
@@ -210,233 +315,85 @@ function App() {
     setError("");
   }
 
+  function selectWork(index) {
+    setActiveWork(index);
+    // On narrow screens the detail sits below the list, so bring it into view.
+    if (window.matchMedia("(max-width: 960px)").matches) {
+      detailRef.current?.scrollIntoView({ block: "start" });
+    }
+  }
+
+  const current = works[activeWork];
+
   return (
-    <main>
-      <nav className="navbar">
-        <a className="wordmark" href="#home">
-          abby<span>.</span>
-        </a>
-
-        <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#work">Selected work</a>
-          <a href="#research">Research</a>
-        </div>
-
-        <a className="nav-contact" href="https://github.com/Abby966">
-          GitHub <span>↗</span>
-        </a>
-      </nav>
-
-      <section className="hero section-wrap" id="home">
-        <div className="hero-copy">
-          <div className="eyebrow">
-            <span className="availability-dot" />
-            COMPUTER SCIENCE GRADUATE · AI & SOFTWARE
-          </div>
-
-          <h1>
-            Building technology
-            <br />
-            with <span>purpose.</span>
-          </h1>
-
-          <p className="hero-description">
-            I'm Abby Chanyalew — a developer and aspiring AI engineer
-            interested in intelligent systems, meaningful software, and
-            technology that solves real-world problems.
-          </p>
-
-          <div className="hero-actions">
-            <a className="button-dark" href="#work">
-              Explore my work <span>↗</span>
+    <main className="page">
+      <div className="progress" aria-hidden="true" />
+      <header className="masthead" id="home">
+        <h1 aria-label="Abegail Chanyalew">
+          <span className="line" aria-hidden="true"><span>Abegail</span></span>
+          <span className="line" aria-hidden="true"><span>Chanyalew</span></span>
+        </h1>
+        <p className="masthead-role">
+          Computer science graduate building AI and software that solve
+          real-world problems.
+        </p>
+        <div className="masthead-bar">
+          <nav className="contents" aria-label="Portfolio contents">
+            {contents.map((item) => (
+              <a key={item.href} href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="masthead-links">
+            <a href="https://github.com/Abby966" target="_blank" rel="noreferrer">
+              GitHub
             </a>
-            <a className="button-text" href="#ask-abby">
-              Get to know Abby <span>↓</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-index">
-          <div className="index-rule" />
-          <span>INDEPENDENT THINKING.</span>
-          <span>THOUGHTFUL ENGINEERING.</span>
-          <span>REAL-WORLD IMPACT.</span>
-          <div className="index-number">AA / 001</div>
-        </div>
-
-        <div className="hero-bottom">
-          <span>BASED IN ETHIOPIA</span>
-          <a href="#work">SCROLL TO EXPLORE ↓</a>
-        </div>
-      </section>
-
-      <section className="intro-section section-wrap" id="about">
-        <div className="section-label">
-          <span>01</span> / A LITTLE ABOUT ME
-        </div>
-
-        <div className="intro-content">
-          <h2>
-            Curious about how things work.
-            <br />
-            Driven by what they can change.
-          </h2>
-
-          <div className="intro-detail">
-            <p>
-              My interests sit at the intersection of software engineering
-              and artificial intelligence. I enjoy turning ideas into
-              working systems, exploring research questions, and thinking
-              about how technology can be useful in the communities that
-              need it.
-            </p>
-            <p>
-              Beyond code, I care about STEM education, mentoring, and
-              helping more young women see a place for themselves in
-              technology.
-            </p>
-            <a className="text-link" href="#ask-abby">
-              There's more to my story <span>↗</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="work-section section-wrap" id="work">
-        <div className="section-heading">
-          <div>
-            <div className="section-label">
-              <span>02</span> / SELECTED WORK
-            </div>
-            <h2>Ideas, made tangible.</h2>
-          </div>
-          <a
-            className="text-link"
-            href="https://github.com/Abby966"
-            target="_blank"
-            rel="noreferrer"
-          >
-            All projects on GitHub ↗
-          </a>
-        </div>
-
-        <div className="project-list">
-          {projects.map((project) => (
-            <article className="project-row" key={project.number}>
-              <span className="project-number">{project.number}</span>
-
-              <div className="project-main">
-                <span className="project-type">{project.type}</span>
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
-                <span className="project-stack">{project.stack}</span>
-              </div>
-
-             
-<div className="project-actions">
-  <a
-    className="project-link"
-    href={project.link}
-    target="_blank"
-    rel="noreferrer"
-    aria-label={`${project.linkLabel}: ${project.name}`}
-    title={project.linkLabel}
-  >
-    {project.live ? "Live ↗" : "↗"}
-  </a>
-</div>
-
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="research-section section-wrap" id="research">
-        <div className="section-label">
-          <span>03</span> / RESEARCH & INTERESTS
-        </div>
-
-        <div className="research-content">
-          <h2>
-            AI should be useful
-            <br />
-            <span>beyond the lab.</span>
-          </h2>
-          <div>
-            <p>
-              I'm interested in building intelligent systems that respond
-              to real constraints — including language, connectivity,
-              accessibility, and local context.
-            </p>
-            <p>
-              My long-term goal is to deepen my expertise in AI and machine
-              learning, through research and engineering that connect
-              technical ideas to practical needs.
-            </p>
             <a
-              className="text-link"
-              href="https://zenodo.org/records/18951345"
+              href="https://www.linkedin.com/in/abigael-chanyalew-1a8b66378"
               target="_blank"
               rel="noreferrer"
             >
-              Read my published research ↗
+              LinkedIn
             </a>
           </div>
         </div>
-      </section>
+      </header>
 
-      <section className="assistant-section section-wrap" id="ask-abby">
-        <div className="assistant-heading">
-          <div className="section-label">
-            <span>04</span> / THE INTERACTIVE PORTFOLIO
-          </div>
-          <h2>
-            Get to know <span>Abby.</span>
-          </h2>
-          <p>
-            Skip the usual portfolio scroll. Ask questions about my work,
-            research, skills, and experience.
-          </p>
+      <div className="marquee" aria-hidden="true">
+        <div className="marquee-track">
+          {[...skills, ...skills].map((skill, i) => (
+            <span key={i}>{skill}</span>
+          ))}
         </div>
+      </div>
 
-        <div className="assistant-card">
+      {/* 1. AskAbby chatbot */}
+      <Sheet
+        id="ask-abby"
+        title="Ask Abby"
+        note="Ask about my work, research, skills, and experience."
+      >
+        <div className="assistant">
           <div className="assistant-top">
-            <div className="assistant-identity">
-              <div className="assistant-mark">a.</div>
-              <div>
-                <strong>Abby AI</strong>
-                <span>
-                  <i /> Portfolio assistant
-                </span>
-              </div>
-            </div>
-            <span className="assistant-badge">AI-POWERED</span>
+            <strong>AskAbby</strong>
+            <span>AI portfolio assistant</span>
           </div>
 
           {messages.length === 0 ? (
             <div className="assistant-welcome">
               <h3>What would you like to know?</h3>
-              <p>
-                Choose a starting point, or ask me something of your own.
-              </p>
-
+              <p>Choose a starting point, or ask something of your own.</p>
               <div className="prompt-list">
-                {suggestions.map((item, index) => (
+                {suggestions.map((item) => (
                   <button
                     className="prompt-item"
                     key={item.title}
                     onClick={() => sendQuestion(item.question)}
                     disabled={loading}
                   >
-                    <span className="prompt-index">
-                      0{index + 1}
-                    </span>
-                    <span className="prompt-copy">
-                      <strong>{item.title}</strong>
-                      <small>{item.description}</small>
-                    </span>
-                    <span className="prompt-arrow">↗</span>
+                    <strong>{item.title}</strong>
+                    <small>{item.description}</small>
                   </button>
                 ))}
               </div>
@@ -449,39 +406,34 @@ function App() {
                   key={`${index}-${message.role}`}
                 >
                   <span className="chat-author">
-                    {message.role === "user" ? "YOU" : "ABBY AI"}
+                    {message.role === "user" ? "You" : "AskAbby"}
                   </span>
                   <p>{message.content}</p>
                 </div>
               ))}
-
               {loading && (
                 <div className="chat-message assistant">
-                  <span className="chat-author">ABBY AI</span>
+                  <span className="chat-author">AskAbby</span>
                   <p className="thinking">Thinking...</p>
                 </div>
               )}
-
               {error && (
                 <div className="chat-error">
                   {error}
                   <button
-                    onClick={() =>
-                      sendQuestion(messages.at(-1)?.content)
-                    }
+                    onClick={() => sendQuestion(messages.at(-1)?.content)}
                     disabled={loading}
                   >
-                    Try again ↗
+                    Try again
                   </button>
                 </div>
               )}
-
               <button
                 className="reset-chat"
                 onClick={startNewChat}
                 disabled={loading}
               >
-                Start a new conversation ↺
+                Start a new conversation
               </button>
             </div>
           )}
@@ -502,88 +454,141 @@ function App() {
               {loading ? "…" : "↑"}
             </button>
           </form>
-
           <p className="assistant-footnote">
-            Responses are generated using Abby's portfolio knowledge base.
-            AI-generated answers may contain errors.
+            Answers come from Abegail's portfolio knowledge base. AI-generated
+            answers may contain errors.
           </p>
         </div>
-      </section>
+      </Sheet>
 
-      <footer className="footer section-wrap">
-        <a className="wordmark" href="#home">
-          abby<span>.</span>
-        </a>
-        <p>Thoughtfully built. Always learning.</p>
+      {/* 2. About me */}
+      <Sheet id="about" title="About me">
+        <h3 className="lead">
+          <Words text="Curious about how things work. Driven by what they can change." />
+        </h3>
+        <div className="prose">
+          <p>
+            I'm Abegail, a developer and aspiring AI engineer. My interests sit
+            at the intersection of software engineering and artificial
+            intelligence. I enjoy turning ideas into working systems, exploring
+            research questions, and thinking about how technology can be useful
+            in the communities that need it.
+          </p>
+          <p>
+            Beyond code, I care about STEM education, mentoring, and helping
+            more young women see a place for themselves in technology.
+          </p>
+        </div>
+      </Sheet>
+
+      {/* 3. Education */}
+      <Sheet id="education" title="Education">
+        <div className="education-entry">
+          <h3>Addis Ababa University</h3>
+          <p className="education-degree">
+            Bachelor of Science in Computer Science
+          </p>
+          <p className="education-note">
+            A strong foundation in computer science, software development, and
+            problem-solving.
+          </p>
+          <span className="education-honor">Great Distinction</span>
+        </div>
+      </Sheet>
+
+      {/* 4. Projects and research */}
+      <Sheet id="work" title="Projects and research">
+        <div className="work-intro">
+          <p>
+            I'm interested in building intelligent systems that respond to real
+            constraints, including language, connectivity, accessibility, and
+            local context. My long-term goal is to deepen my expertise in AI and
+            machine learning through research and engineering that connect
+            technical ideas to practical needs.
+          </p>
+        </div>
+
+        <div className="work-viewer">
+          <div className="work-index">
+            {["Research", "Project"].map((kind) => (
+              <div className="work-group" key={kind}>
+                <h3>{kind === "Research" ? "Research" : "Projects"}</h3>
+                {works.map((item, index) =>
+                  item.kind === kind ? (
+                    <button
+                      type="button"
+                      className="work-item"
+                      key={item.name}
+                      aria-current={index === activeWork}
+                      onClick={() => selectWork(index)}
+                    >
+                      {item.name}
+                    </button>
+                  ) : null
+                )}
+              </div>
+            ))}
+          </div>
+
+          <article
+            className="work-detail"
+            key={current.name}
+            ref={detailRef}
+            aria-live="polite"
+          >
+            <span className="work-field">{current.field}</span>
+            <h3>{current.name}</h3>
+            <p className="work-description">{current.description}</p>
+            <p className="work-stack">
+              <strong>Built with:</strong> {current.stack}
+            </p>
+            <a
+              className="text-link"
+              href={current.link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {current.linkLabel}
+            </a>
+          </article>
+        </div>
+      </Sheet>
+
+      {/* 5. Experience */}
+      <Sheet id="experience" title="Experience">
+        <div className="experience-list">
+          {experience.map((item) => (
+            <article className="experience-entry" key={item.name}>
+              <span className="experience-kind">{item.kind}</span>
+              <div>
+                <h3>{item.name}</h3>
+                <p className="experience-role">{item.role}</p>
+                <p className="experience-detail">{item.detail}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Sheet>
+
+      <footer className="footer">
+        <span className="footer-name">Abegail Chanyalew</span>
         <div className="footer-links">
           <a href="https://github.com/Abby966" target="_blank" rel="noreferrer">
-            GitHub ↗
+            GitHub
           </a>
           <a
-            href="https://www.linkedin.com/"
+            href="https://www.linkedin.com/in/abigael-chanyalew-1a8b66378"
             target="_blank"
             rel="noreferrer"
           >
-            LinkedIn ↗
+            LinkedIn
           </a>
-          <a href="#home">Back to top ↑</a>
+          <a href="#home">Back to top</a>
         </div>
-        <span className="copyright">© 2026 ABBY CHANYALEW</span>
+        <span className="copyright">© 2026 Abegail Chanyalew</span>
       </footer>
     </main>
   );
 }
-
-const experience = [
-  {
-    period: "CURRENT ROLE",
-    name: "BeOnline ICT Solutions PLC",
-    role: "Technical Solutions Engineer — Microsoft Cloud & Collaboration",
-    detail:
-      "Support customer-facing technical solutions involving Microsoft 365, Azure, Microsoft Entra ID, Teams, Exchange Online, SharePoint, OneDrive, endpoint management, cloud security, and licensing. Also engage with security solutions including Kaspersky and CyberArk.",
-  },
-  {
-    period: "DEVELOPMENT EXPERIENCE",
-    name: "Afronex Tech Hub",
-    role: "Developer · Full-Stack Development Intern",
-    detail:
-      "Contributed to web application development using React and Node.js, gaining practical experience in frontend interfaces, backend functionality, and full-stack development.",
-  },
-  {
-    period: "TEACHING EXPERIENCE",
-    name: "Yenetta Code",
-    role: "Coding Instructor",
-    detail:
-      "Support learners as they develop programming knowledge and practical coding skills through instruction and learning activities.",
-  },
-  {
-    period: "COMMUNITY LEADERSHIP",
-    name: "WAAW Foundation",
-    role: "Chapter Leadership · STEM Outreach",
-    detail:
-      "Promoted STEM education and technology engagement for girls through outreach activities, presentations, and practical learning opportunities.",
-  },
-  {
-    period: "TUTORING & EDUCATION",
-    name: "Kelem Tutors and Other Learning Initiatives",
-    role: "Tutor · Volunteer Educator",
-    detail:
-      "Supported learners through tutoring and educational activities, helping students strengthen their understanding of academic and technical subjects.",
-  },
-  {
-    period: "INTERNSHIP",
-    name: "Commercial Bank of Ethiopia",
-    role: "Semester Intern",
-    detail:
-      "Gained workplace experience through a semester internship at the Commercial Bank of Ethiopia.",
-  },
-  {
-    period: "COMMUNITY ENGAGEMENT",
-    name: "STEM Outreach in Dire Dawa",
-    role: "Technology Outreach and Mentoring",
-    detail:
-      "Participated in activities introducing students to technology, web development, and opportunities in STEM, with a focus on encouraging girls to explore technology.",
-  },
-];
 
 export default App;
