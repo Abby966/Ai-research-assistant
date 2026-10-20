@@ -11,16 +11,28 @@ app = FastAPI(
 )
 
 # Allow the local React development server to call this API.
+
+import os
+
+# Allow local development and the deployed portfolio frontend.
+allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+# Set this in Render to your actual Vercel frontend URL.
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    allowed_origins.append(frontend_url.rstrip("/"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class ResearchQuestion(BaseModel):
     question: str
