@@ -1,19 +1,25 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --white: #ffffff;
-  --black: #000000;
-  --text: #262626;
-  --muted: #5e5e5e;
-  --line: #d2d2d2;
-  --wash: #f2f2f2;
+  --white: #F8F5EF;
+  --black: #29251F;
+  --text: #39342D;
+  --muted: #82796E;
+  --line: #E5DDD2;
+  --wash: #F0EAE1;
 
-  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --sans: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --accent: #C66A43;
+  --accent-light: #F0DED3;
+  --surface: #FFFCF7;
+
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'Hanken Grotesk', system-ui, sans-serif;
 
   font-family: var(--sans);
   color: var(--text);
   background: var(--white);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -25,17 +31,18 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 17px;
   scroll-behavior: smooth;
-  scroll-padding-top: 24px;
+  scroll-padding-top: 40px;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  font-family: var(--sans);
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text);
   background: var(--white);
 }
@@ -48,17 +55,11 @@ main {
   overflow: clip;
 }
 
-h1,
-h2,
-h3,
-h4,
-p {
+h1, h2, h3, h4, p {
   margin: 0;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--serif);
   font-weight: 400;
   color: var(--black);
@@ -69,8 +70,7 @@ a {
   text-decoration: none;
 }
 
-button,
-input {
+button, input, textarea {
   font: inherit;
   color: inherit;
 }
@@ -83,26 +83,31 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button,
-a {
+button, a {
   -webkit-tap-highlight-color: transparent;
 }
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--black);
-  outline-offset: 3px;
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 ::selection {
-  background: var(--black);
-  color: var(--white);
+  background: var(--accent-light);
+  color: var(--black);
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }
 
 @media (max-width: 640px) {
   html {
-    font-size: 17px;
+    font-size: 16px;
   }
 }
 
