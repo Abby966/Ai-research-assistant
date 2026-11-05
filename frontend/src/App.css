@@ -793,6 +793,461 @@
   transform: none;
 }
 
+/* ==========================================
+   ABBY PORTFOLIO — VISUAL REFINEMENT
+   Warm editorial / modern technology
+   ========================================== */
+
+/* Main page */
+
+.page {
+  width: min(1200px, calc(100% - 100px));
+}
+
+/* Hero */
+
+.masthead {
+  padding-top: 100px;
+}
+
+.masthead h1 {
+  font-size: clamp(4rem, 10vw, 8.8rem);
+  line-height: 0.91;
+  letter-spacing: -0.055em;
+}
+
+.masthead-role {
+  max-width: 36ch;
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  letter-spacing: -0.025em;
+}
+
+.masthead-bar {
+  margin-top: 64px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.contents a,
+.masthead-links a {
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.contents a:hover,
+.masthead-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Section dividers */
+
+.sheet {
+  padding: 84px 0 96px;
+}
+
+.sheet::before {
+  height: 1px;
+  background: var(--line);
+}
+
+.sheet-title h2 {
+  letter-spacing: -0.035em;
+}
+
+.sheet-title p {
+  color: var(--muted);
+}
+
+/* Typography */
+
+.lead {
+  max-width: 27ch;
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  letter-spacing: -0.035em;
+  line-height: 1.17;
+}
+
+.prose p,
+.work-intro p {
+  color: var(--text);
+  line-height: 1.85;
+}
+
+.text-link {
+  color: var(--accent);
+  border-color: var(--accent);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.text-link:hover {
+  color: var(--black);
+  border-color: var(--black);
+  opacity: 1;
+}
+
+/* Skills marquee */
+
+.marquee {
+  border-color: var(--line);
+}
+
+.marquee-track span {
+  color: var(--accent);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+
+.marquee-track span::after {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}
+
+/* AskAbby assistant */
+
+.assistant {
+  max-width: 860px;
+  overflow: hidden;
+  border: 1px solid #41372F;
+  border-radius: 5px;
+  background: #302A24;
+  box-shadow: 0 18px 45px rgba(64, 45, 29, 0.10);
+  transition: box-shadow 300ms ease,
+              transform 300ms ease;
+}
+
+.assistant:hover {
+  box-shadow: 0 22px 55px rgba(64, 45, 29, 0.14);
+}
+
+.assistant-top {
+  padding: 22px 30px;
+  border-bottom: 1px solid #51463C;
+}
+
+.assistant-top strong {
+  font-size: 1.55rem;
+}
+
+.assistant-top span {
+  font-size: 0.85rem;
+}
+
+.assistant-welcome {
+  padding: 38px 30px 12px;
+}
+
+.assistant-welcome h3 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  letter-spacing: -0.025em;
+}
+
+.assistant-welcome > p {
+  line-height: 1.7;
+}
+
+.prompt-list {
+  border-color: #51463C;
+}
+
+.prompt-item {
+  padding-block: 20px;
+  border-color: #51463C;
+}
+
+.prompt-item:hover:not(:disabled) {
+  background: #3D342C;
+}
+
+.prompt-item strong {
+  font-size: 1.05rem;
+}
+
+.prompt-item small {
+  line-height: 1.6;
+}
+
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: #756456 transparent;
+}
+
+.chat-message p {
+  border-radius: 4px;
+}
+
+.chat-message.user p {
+  background: var(--accent);
+  color: white;
+}
+
+.assistant-composer {
+  border: 1px solid #716357;
+  border-radius: 4px;
+  transition: border-color 200ms ease;
+}
+
+.assistant-composer:focus-within {
+  outline: none;
+  border-color: #E5A17E;
+  box-shadow: 0 0 0 3px rgba(198, 106, 67, 0.18);
+}
+
+.assistant-composer button {
+  border-radius: 3px;
+  background: var(--accent);
+  color: white;
+  transition: background 200ms ease,
+              transform 200ms ease;
+}
+
+.assistant-composer button:hover:not(:disabled) {
+  background: #D47B54;
+  transform: translateY(-2px);
+}
+
+.assistant-footnote {
+  padding-bottom: 4px;
+}
+
+/* Education */
+
+.education-entry h3 {
+  letter-spacing: -0.035em;
+}
+
+.education-degree {
+  color: var(--accent);
+}
+
+.education-honor {
+  border-color: var(--accent);
+  border-radius: 3px;
+  background: var(--accent-light);
+  color: #934B30;
+  font-size: 0.9rem;
+}
+
+/* Projects and research */
+
+.work-viewer {
+  gap: 56px;
+  border-color: var(--line);
+}
+
+.work-group h3 {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+
+.work-item {
+  padding-block: 14px;
+  border-color: var(--line);
+  transition: color 200ms ease,
+              padding 250ms ease,
+              border-color 200ms ease;
+}
+
+.work-item:hover {
+  color: var(--accent);
+}
+
+.work-item[aria-current='true'] {
+  border-left-color: var(--accent);
+  color: var(--accent);
+}
+
+.work-detail {
+  border-color: var(--line);
+}
+
+.work-field {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+}
+
+.work-detail h3 {
+  letter-spacing: -0.04em;
+}
+
+.work-description {
+  line-height: 1.85;
+}
+
+.work-stack strong {
+  color: var(--accent);
+}
+
+/* Experience */
+
+.experience-list {
+  border-color: var(--line);
+}
+
+.experience-entry {
+  padding: 36px 0;
+  border-color: var(--line);
+  transition: padding 300ms ease;
+}
+
+.experience-entry:hover {
+  padding-left: 12px;
+}
+
+.experience-entry h3 {
+  letter-spacing: -0.025em;
+}
+
+.experience-role {
+  color: var(--accent);
+}
+
+.experience-kind {
+  font-size: 0.9rem;
+}
+
+/* Footer */
+
+.footer {
+  border-top: 1px solid var(--line);
+}
+
+.footer-name {
+  letter-spacing: -0.035em;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Subtle interaction refinements */
+
+button,
+a {
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+::selection {
+  background: var(--accent-light);
+  color: var(--black);
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4C7B8;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Responsive refinements */
+
+@media (max-width: 960px) {
+  .page {
+    width: calc(100% - 64px);
+  }
+
+  .masthead {
+    padding-top: 76px;
+  }
+
+  .sheet {
+    padding-block: 68px;
+  }
+
+  .work-viewer {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    width: calc(100% - 40px);
+  }
+
+  .masthead {
+    padding-top: 58px;
+  }
+
+  .masthead h1 {
+    font-size: clamp(3.5rem, 16vw, 5rem);
+  }
+
+  .masthead-role {
+    margin-top: 24px;
+  }
+
+  .masthead-bar {
+    margin-top: 38px;
+    gap: 22px;
+  }
+
+  .sheet {
+    padding-block: 54px 64px;
+  }
+
+  .lead {
+    font-size: 2rem;
+  }
+
+  .assistant {
+    box-shadow: 7px 7px 0 var(--line);
+  }
+
+  .assistant-top,
+  .assistant-welcome,
+  .chat-messages {
+    padding-inline: 20px;
+  }
+
+  .assistant-composer,
+  .assistant-footnote {
+    margin-inline: 20px;
+  }
+
+  .work-detail {
+    padding-top: 28px;
+  }
+
+  .experience-entry:hover {
+    padding-left: 0;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .assistant,
+  .assistant-composer button,
+  .work-item,
+  .experience-entry {
+    transition: none !important;
+  }
+
+  .assistant:hover,
+  .assistant-composer button:hover {
+    transform: none;
+  }
+}
+
+
 /* AskAbby: inverted, black card */
 .assistant {
   background: var(--black);
