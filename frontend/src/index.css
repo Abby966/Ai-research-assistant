@@ -1,25 +1,21 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap');
 
 :root {
-  --white: #F8F5EF;
-  --black: #29251F;
-  --text: #39342D;
-  --muted: #82796E;
-  --line: #E5DDD2;
-  --wash: #F0EAE1;
-
-  --accent: #C66A43;
-  --accent-light: #F0DED3;
-  --surface: #FFFCF7;
-
+  --bg: #10151b;
+  --surface: #171e26;
+  --surface-light: #202933;
+  --white: #f5f3ef;
+  --text: #d6d9dc;
+  --muted: #929ba4;
+  --line: rgba(255,255,255,.12);
+  --accent: #c3c8cb;
   --serif: 'Newsreader', Georgia, serif;
-  --sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
 
   font-family: var(--sans);
   color: var(--text);
-  background: var(--white);
-
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -31,9 +27,9 @@
 }
 
 html {
-  font-size: 17px;
   scroll-behavior: smooth;
-  scroll-padding-top: 40px;
+  scroll-padding-top: 90px;
+  background: var(--bg);
 }
 
 body {
@@ -41,10 +37,10 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: var(--sans);
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 16px;
+  line-height: 1.7;
+  background: var(--bg);
   color: var(--text);
-  background: var(--white);
 }
 
 #root {
@@ -62,7 +58,7 @@ h1, h2, h3, h4, p {
 h1, h2, h3 {
   font-family: var(--serif);
   font-weight: 400;
-  color: var(--black);
+  color: var(--white);
 }
 
 a {
@@ -72,7 +68,6 @@ a {
 
 button, input, textarea {
   font: inherit;
-  color: inherit;
 }
 
 button {
@@ -83,31 +78,27 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button, a {
-  -webkit-tap-highlight-color: transparent;
+img {
+  max-width: 100%;
+  display: block;
 }
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid #c3c8cb;
   outline-offset: 4px;
 }
 
 ::selection {
-  background: var(--accent-light);
-  color: var(--black);
-}
-
-img {
-  max-width: 100%;
-  display: block;
+  background: #c3c8cb;
+  color: #10151b;
 }
 
 @media (max-width: 640px) {
-  html {
-    font-size: 16px;
+  body {
+    font-size: 15px;
   }
 }
 
@@ -116,8 +107,8 @@ img {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: .01ms !important;
   }
 }
