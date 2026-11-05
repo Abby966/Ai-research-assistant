@@ -1460,7 +1460,7 @@ a {
       rgba(12,17,23,.85),
       transparent 40%
     ),
-    url('/images/ai-hero.jpg') center / cover no-repeat;
+    url('/ai-hero.jpg')     center / cover no-repeat;
 
   overflow: hidden;
 }
