@@ -118,9 +118,12 @@ function App() {
     setError("");
     setLoading(true);
     try {
-      const API_URL = import.meta.env.VITE_API_URL;
+     const API_URL = (
+  import.meta.env.VITE_API_URL ||
+  "https://askabby-api.onrender.com"
+).replace(/\/+$/, "");
 
-      const response = await fetch(`${API_URL}/ask`, {
+const response = await fetch(`${API_URL}/ask`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -141,14 +144,17 @@ function App() {
             .replace(/\*/g, ""),
         },
       ]);
-    } catch (err) {
-      setError(
-        "I couldn't connect to AskAbby. Check that the backend is running and try again."
-      );
-      console.error("Chat request failed:", err);
-    } finally {
-      setLoading(false);
-    }
+   } catch (err) {
+  console.error("Chat request failed:", err);
+
+  setError(
+    err.message?.includes("Failed to fetch")
+      ? "Unable to reach Abby AI. Please check your connection."
+      : `Abby AI encountered an issue: ${err.message}`
+  );
+} finally {
+  setLoading(false);
+}
   }
 
   function handleSubmit(event) {
