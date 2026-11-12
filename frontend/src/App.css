@@ -360,3 +360,15 @@ body, .page { color: var(--black); }
 .masthead h1 { font-size: clamp(2.6rem, 8vw, 6.4rem); line-height: 1; letter-spacing: -.035em; }
 .masthead h1 .line { padding-bottom: .14em; }
 .hero-chips { margin-bottom: 28px; }
+
+/* V3.1 — force readable headings in light sections (beats any global white rule) */
+#education .education-entry h3,
+#work .work-detail h3,
+#experience .experience-entry h3,
+#about .lead {
+  color: var(--black) !important;
+  -webkit-text-fill-color: var(--black) !important;
+}
+#about .lead { color: var(--purple-deep) !important; -webkit-text-fill-color: var(--purple-deep) !important; }
+#education .education-degree { color: var(--purple-mid) !important; -webkit-text-fill-color: var(--purple-mid) !important; }
+#education .education-note { color: #2a2733 !important; }
