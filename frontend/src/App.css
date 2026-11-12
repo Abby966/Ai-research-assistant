@@ -320,3 +320,43 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; let
   .masthead h1 .line > span { -webkit-text-fill-color: #fff; background: none; color: #fff; }
   .sheet-title h2::after { transform: scaleX(1); }
 }
+
+/* ==========================================================
+   V3 — guaranteed text contrast + smaller name
+   ========================================================== */
+body, .page { color: var(--black); }
+
+/* Light sections: dark text everywhere */
+.sheet.light h3, .sheet.wash h3,
+.sheet.light p, .sheet.wash p,
+.sheet.light strong, .sheet.wash strong { color: var(--black); }
+.sheet.light .lead, .sheet.wash .lead { color: var(--purple-deep); }
+.sheet .prose p, .sheet .work-intro, .sheet .education-note, .sheet .work-description { color: #2a2733; }
+.sheet .sheet-title p, .sheet .work-stack, .sheet .experience-detail { color: var(--muted); }
+.sheet .work-stack strong { color: var(--black); }
+.sheet .education-degree, .sheet .experience-kind { color: var(--purple-mid); }
+.sheet .work-group h3 { color: var(--violet); }
+.sheet .work-field, .sheet .education-honor { color: #fff; }
+.sheet .experience-entry:hover .experience-kind { color: #fff; }
+.sheet .work-item { color: var(--muted); }
+.sheet .work-item:hover, .sheet .work-item[aria-current="true"] { color: var(--violet); }
+.sheet .text-link { color: var(--violet); }
+.sheet .experience-entry h3 { color: var(--black); }
+.sheet .experience-role { color: var(--purple); }
+
+/* Dark Ask Abby section: light text everywhere */
+.sheet.dark h3, .sheet.dark strong, .sheet.dark p { color: #fff; }
+.sheet.dark .sheet-title p, .sheet.dark .assistant-top span,
+.sheet.dark .assistant-welcome > p, .sheet.dark .prompt-item small,
+.sheet.dark .chat-author, .sheet.dark .thinking, .sheet.dark .reset-chat { color: var(--lilac); }
+.sheet.dark .assistant-footnote { color: #b8a9d6; }
+.sheet.dark .chat-message.user p, .sheet.dark .chat-message.user p * { color: var(--purple-deep); }
+
+/* Hero stays light-on-dark */
+.masthead, .masthead h1, .masthead p { color: #fff; }
+.masthead .masthead-role { color: #e3d6fa; }
+
+/* Smaller name */
+.masthead h1 { font-size: clamp(2.6rem, 8vw, 6.4rem); line-height: 1; letter-spacing: -.035em; }
+.masthead h1 .line { padding-bottom: .14em; }
+.hero-chips { margin-bottom: 28px; }
