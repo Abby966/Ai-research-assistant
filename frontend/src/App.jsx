@@ -191,8 +191,20 @@ function App() {
         </div>
       </nav>
 
-      <header className="masthead" id="home">
+      <header className="masthead" id="home" onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+      }}>
+        <span className="blob b1" aria-hidden="true" />
+        <span className="blob b2" aria-hidden="true" />
+        <span className="blob b3" aria-hidden="true" />
         <div className="wrap">
+          <div className="hero-chips" aria-hidden="true">
+            <span>Software</span>
+            <span>AI research</span>
+            <span>Cloud</span>
+          </div>
           <h1 aria-label="Abegail Chanyalew">
             <span className="line" aria-hidden="true"><span>Abegail</span></span>
             <span className="line" aria-hidden="true"><span>Chanyalew</span></span>
@@ -208,6 +220,7 @@ function App() {
             </div>
           </div>
         </div>
+        <span className="scroll-cue" aria-hidden="true" />
       </header>
 
       <div className="marquee" aria-hidden="true">
