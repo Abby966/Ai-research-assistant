@@ -1,5 +1,5 @@
-
 from google import genai
+from google.genai import types
 import os
 
 from dotenv import load_dotenv
@@ -7,8 +7,17 @@ from app.vector_store import search_chunks
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(
+        retry_options=types.HttpRetryOptions(
+            attempts=5,
+            initial_delay=2.0,
+            max_delay=30.0,
+            http_status_codes=[408, 429, 500, 502, 503, 504]
+        )
+    )
+)
 
 def answer_question(question):
     results = search_chunks(question, n_results=3)
