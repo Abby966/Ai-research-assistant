@@ -226,3 +226,26 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.08; let
 }
 .chat-message { min-width: 0; }
 .chat-message p { max-height: none; overflow: visible; overflow-wrap: anywhere; }
+/* Fix chat text being clipped */
+.assistant { overflow: visible; }
+.chat-messages {
+  max-height: none;
+  overflow: visible;
+  padding: 24px 28px;
+}
+.chat-message {
+  min-width: 0;
+  max-width: min(88%, 640px);
+}
+.chat-message p {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: left;
+}
