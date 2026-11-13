@@ -131,8 +131,13 @@ const response = await fetch(`${API_URL}/ask`, {
         body: JSON.stringify({ question: trimmedQuestion }),
       });
       if (!response.ok) {
-        throw new Error(`Request failed (${response.status})`);
-      }
+  const errorText = await response.text();
+  console.error("Backend response:", errorText);
+
+  throw new Error(
+    `Request failed (${response.status}): ${errorText}`
+  );
+}
       const data = await response.json();
       if (data.error) throw new Error(data.error);
       setMessages((previous) => [
