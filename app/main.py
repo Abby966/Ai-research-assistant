@@ -1,8 +1,11 @@
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
 from app.rag import answer_question
+
 
 app = FastAPI(
     title="Abby AI",
@@ -10,18 +13,15 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Allow the local React development server to call this API.
-
-import os
-
 # Allow local development and the deployed portfolio frontend.
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
-# Set this in Render to your actual Vercel frontend URL.
+# Set FRONTEND_URL in Render to your actual deployed frontend URL.
 frontend_url = os.getenv("FRONTEND_URL")
+
 if frontend_url:
     allowed_origins.append(frontend_url.rstrip("/"))
 
@@ -37,15 +37,20 @@ app.add_middleware(
 class ResearchQuestion(BaseModel):
     question: str
 
+
 @app.get("/")
 def home():
     return {"message": "Abby AI API is running"}
+
 
 @app.post("/ask")
 def ask_question(request: ResearchQuestion):
     try:
         answer = answer_question(request.question)
-        return {"question": request.question, "answer": answer}
+        return {
+            "question": request.question,
+            "answer": answer
+        }
     except Exception as e:
         print(f"Error processing question: {e}")
         return {
