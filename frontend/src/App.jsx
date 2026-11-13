@@ -196,6 +196,7 @@ const response = await fetch(`${API_URL}/ask`, {
             ))}
           </div>
           <div className="masthead-links">
+            <a href="mailto:abegailchnayalew6@gmail.com">Email</a>
             <a href="https://github.com/Abby966" target="_blank" rel="noreferrer">GitHub</a>
             <a href="https://www.linkedin.com/in/abigael-chanyalew-1a8b66378" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
