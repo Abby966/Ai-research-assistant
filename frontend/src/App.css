@@ -248,3 +248,25 @@ body::before { content: ""; position: fixed; inset: 0; z-index: 140; pointer-eve
   .masthead h1 .line > span, .hero-side, .hero-chips, .lead .w, [data-reveal] .sheet-title, [data-reveal] .sheet-body { opacity: 1; transform: none; }
   .sheet-title h2::after { transform: scaleX(1); }
 }
+
+/* ===== Scene transitions: each section opens like a curtain from a floating card to full-bleed ===== */
+@supports (animation-timeline: view()) {
+  @keyframes scene-open {
+    from { clip-path: inset(16% 6% 0 6% round 56px); transform: translateY(60px) scale(.96); filter: brightness(.7); }
+    to   { clip-path: inset(0 0 0 0 round 0); transform: none; filter: none; }
+  }
+  @keyframes credits-open {
+    from { clip-path: inset(30% 12% 0 12% round 56px); opacity: .4; }
+    to   { clip-path: inset(0 round 0); opacity: 1; }
+  }
+  .sheet { animation: scene-open linear both; animation-timeline: view(); animation-range: entry 0% entry 65%; }
+  .footer { animation: credits-open linear both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
+  @media (max-width: 560px) {
+    @keyframes scene-open-sm {
+      from { clip-path: inset(8% 4% 0 4% round 28px); transform: translateY(30px); }
+      to   { clip-path: inset(0 round 0); transform: none; }
+    }
+    .sheet { animation-name: scene-open-sm; }
+  }
+}
+@media (prefers-reduced-motion: reduce) { .sheet, .footer { animation: none !important; clip-path: none; } }
