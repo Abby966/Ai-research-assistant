@@ -224,3 +224,5 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.08; let
   .masthead h1 .line > span, .hero-side, .hero-chips, .lead .w, [data-reveal] .sheet-title, [data-reveal] .sheet-body { opacity: 1; transform: none; }
   .sheet-title h2::after { transform: scaleX(1); }
 }
+.chat-message { min-width: 0; }
+.chat-message p { max-height: none; overflow: visible; overflow-wrap: anywhere; }
