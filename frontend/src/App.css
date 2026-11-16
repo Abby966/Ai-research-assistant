@@ -21,8 +21,8 @@
 }
 
 * { box-sizing: border-box; margin: 0; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + var(--safe-t)); scroll-snap-type: y proximity; }
-body { background: var(--ink); color: var(--text); font-family: var(--sans); font-size: clamp(.9rem, .88rem + .1vw, .98rem); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+html { overflow-x: clip; max-width: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + var(--safe-t)); scroll-snap-type: y proximity; }
+body { background: var(--ink); color: var(--text); font-family: var(--sans); font-size: clamp(.9rem, .88rem + .1vw, .98rem); line-height: 1.65; -webkit-font-smoothing: antialiased; }
 img, svg, video, canvas { max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; color: inherit; }
@@ -99,7 +99,7 @@ body::before { content: ""; position: fixed; inset: 0; z-index: 140; pointer-eve
 
 /* ===== Sections = full-screen "scenes" with chapter numbers ===== */
 .sheet { position: relative; overflow: hidden; display: flex; align-items: center; min-height: 100vh; min-height: 100svh; padding: var(--sheet-pad) 0; scroll-snap-align: start; counter-increment: sheet; background: var(--ivory); color: var(--text); }
-.sheet > .wrap { flex: 1 1 auto; }
+.sheet > .wrap { flex: 1 1 auto; min-width: 0; }
 .sheet.wash { background: var(--wash); }
 .sheet.dark { background: radial-gradient(90% 70% at 50% 0%, #26200f, var(--ink-2) 60%, var(--ink)); color: #f1ece2; }
 .sheet.dark::before { content: ""; position: absolute; width: min(520px, 90vw); height: min(520px, 90vw); right: -160px; top: -140px; border-radius: 50%; background: var(--gold-deep); filter: blur(120px); opacity: .28; pointer-events: none; }
@@ -283,12 +283,13 @@ body::before { content: ""; position: fixed; inset: 0; z-index: 140; pointer-eve
   .contents { display: none; }
   .sheet { min-height: 0; padding: var(--sheet-pad) 0; }
   .sheet::after { top: 2%; right: 2%; }
-  .work-viewer { grid-template-columns: 1fr; gap: 28px; padding-top: 28px; }
+  .work-viewer { grid-template-columns: minmax(0,1fr); gap: 28px; padding-top: 28px; }
   /* work list becomes a swipeable row of groups on tablet/phone */
   .work-list { min-width: 0; }
   .work-detail { padding: 26px; }
   .experience-entry { position: static; grid-template-columns: 1fr; gap: 8px; margin-bottom: 18px; padding: 22px; box-shadow: 0 10px 30px rgba(120,90,30,.1); }
   .blob { filter: blur(70px); }
+  body::after { display: none; } /* oversized fixed grain layer can widen the page on phones */
   /* lighter scene transition (less clipping, less GPU work) */
   @supports (animation-timeline: view()) {
     .sheet { animation-name: scene-open-sm; animation-range: entry 0% entry 45%; }
@@ -311,7 +312,7 @@ body::before { content: ""; position: fixed; inset: 0; z-index: 140; pointer-eve
 /* ---- Phones ---- */
 @media (max-width: 560px) {
   .masthead-links { gap: 6px; }
-  .masthead-links a { padding: 6px 12px; font-size: .78rem; }
+  .masthead-links a { padding: 6px 10px; font-size: .74rem; }
   .nav .wrap { gap: 12px; }
   .nav-logo { font-size: 1.15rem; }
   .sheet::after { font-size: clamp(5rem, 30vw, 8rem); opacity: .8; }
@@ -337,7 +338,9 @@ body::before { content: ""; position: fixed; inset: 0; z-index: 140; pointer-eve
   :root { --gutter: 14px; }
   .masthead h1 { font-size: 2.1rem; }
   .hero-actions .btn { flex-basis: 100%; }
-  .masthead-links a { padding: 6px 10px; }
+  .masthead-links a { padding: 5px 9px; }
+  .masthead-links a:first-child { display: none; } /* hide Email pill; keep GitHub + LinkedIn */
+  .nav-logo { font-size: 1.05rem; }
   .assistant-footnote { font-size: .74rem; }
 }
 
