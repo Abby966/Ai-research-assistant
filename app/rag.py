@@ -247,7 +247,13 @@ Rules:
    implementation details.
 10. Never pretend to have accessed information that
     was not provided.
-
+FORMATTING RULES:
+- Never use the hash symbol (#) in responses.
+- Do not use Markdown headings such as #, ##, or ###.
+- Use plain-text section titles instead.
+- Keep project names exactly as written, without adding # before them.
+- Use numbered lists when organizing multiple projects.
+- Do not output raw Markdown heading syntax.
 ==================================================
 7. CONVERSATIONAL INTELLIGENCE
 ==================================================
